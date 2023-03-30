@@ -1,11 +1,11 @@
-/* dotgrey.inc version 1.0-international
+/* dotgrey.inc version 1.0.1-international
  * Persistence of Vision Raytracer include file
  *
  * Implement the ITU-R BT.709-6 luminance function.
  * http://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.709-6-201506-I!!PDF-E.pdf
  * page 6, item 3.2
  *
- * Copyright © 2023 Richard Callwood III.  Some rights reserved.
+ * Copyright © 2018, 2023 Richard Callwood III.  Some rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,12 @@
  * Vers.  Date         Notes
  * -----  ----         -----
  * 1.0    2023-Feb-20  Created.
+ * 1.0.1  2023-Mar-30  The POV-Ray version is auto-detected within a range.
  */
 #ifndef (DotGrey_Inc_Temp) #declare DotGrey_Inc_Temp = version;
-#version 3.5;
+#version max (3.5, min (3.8, version));
 #ifdef (View_POV_Include_Stack)
-  #debug "#include \"dotgrey.inc\" //version 1.0\n"
+  #debug "#include \"dotgrey.inc\" //version 1.0.1\n"
 #end
 
 #macro DotGrey (Colour)

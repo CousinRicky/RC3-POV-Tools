@@ -1,4 +1,4 @@
-/* dotgray.inc version 1.0-American
+/* dotgray.inc version 1.0.1-American
  * Persistence of Vision Raytracer include file
  *
  * Implement the ITU-R BT.709-6 luminance function.
@@ -23,11 +23,12 @@
  * -----  ----         -----
  * n/a    2018-May-02  Created.
  * 1.0    2023-Feb-20  Prepared for public release.
+ * 1.0.1  2023-Mar-30  The POV-Ray version is auto-detected within a range.
  */
 #ifndef (DotGray_Inc_Temp) #declare DotGray_Inc_Temp = version;
-#version 3.5;
+#version max (3.5, min (3.8, version));
 #ifdef (View_POV_Include_Stack)
-  #debug "#include \"dotgray.inc\" //version 1.0\n"
+  #debug "#include \"dotgray.inc\" //version 1.0.1\n"
 #end
 
 #macro DotGray (Color)

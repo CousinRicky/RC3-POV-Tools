@@ -1,26 +1,35 @@
 # Miscellaneous POV-Ray Tools
 
-Collection version 1.0
+Collection version 1.0.1, 2023 March 30
 
 This is a collection of miscellaneous short include files that I have written for the [Persistence of Vision Raytracer (POV-Ray)](https://www.povray.org/). They require a minimum POV-Ray version of 3.5.
 
----------------------------------------
+----------------------------------------
 
-## File dotgray.inc v1.0
+## Files dotgray.inc and dotgrey.inc, v1.0.1
 
 ### Macro `DotGray (Color)`
 
-This is a substitute for POV-Ray’s built-in `.gray` operator that is more accurate with `assumed_gamma 1.0` than `.gray` is. Color system BT.709-6/sRGB is assumed.
-
----------------------------------------
-
-## File dotgrey.inc v1.0
-
 ### Macro `DotGrey (Colour)`
 
-This is a substitute for POV-Ray’s built-in `.gray` operator that is more accurate with `assumed_gamma 1.0` than `.gray` is. Color system BT.709-6/sRGB is assumed.
+These are substitutes for POV-Ray’s built-in `.gray` operator that are more accurate with `assumed_gamma 1.0` than `.gray` is. Color system BT.709-6/sRGB is assumed.
 
----------------------------------------
+**Important:** This module is designed for use with `assumed_gamma 1.0` only! If your color is sRGB-encoded (which most are), then it must be decoded using one of the srgb keywords before being passed to `DotGray()` or `DotGrey()`. For example:
+
+    DotGray (srgb <MyRed, MyGreen, MyBlue> / 255)
+    DotGray (srgbft MysRGBEncodedColor)
+
+Alternatively, if you know that your color is encoded with a particular gamma, or if you are using a version of POV-Ray prior to 3.7, you can use the power function. For example:
+
+    #include "math.inc"
+    DotGray (VPow (<MyRed, MyGreen, MyBlue> / 255, 2.2))
+    DotGray (VPow (MyAdobeEncodedColor, 2.2))
+
+If your color specification is already linear, there is no need to decode it.
+
+Please see the thread “[strange problem with srgb color in light_source](https://news.povray.org/povray.general/thread/%3Cweb.60649d9bb9b7dccdd98418916e066e29%40news.povray.org%3E/)” for a discussion of gamma decoding in POV-Ray.
+
+----------------------------------------
 
 ## File halton.inc v1.0.1
 
@@ -37,7 +46,7 @@ Arguments:
 
 This scene description file demonstrates how to use macro `Halton()`.
 
----------------------------------------
+----------------------------------------
 
 ## File srgb.inc v2.0
 
