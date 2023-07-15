@@ -1,6 +1,6 @@
 # Miscellaneous POV-Ray Tools
 
-Collection version 1.0.1, 2023 March 30
+Collection version 1.1, 2023 July 15
 
 This is a collection of miscellaneous short include files that I have written for the [Persistence of Vision Raytracer (POV-Ray)](https://www.povray.org/). They require a minimum POV-Ray version of 3.5.
 
@@ -48,7 +48,7 @@ This scene description file demonstrates how to use macro `Halton()`.
 
 ----------------------------------------
 
-## File srgb.inc v2.0
+## File srgb.inc v2.1
 
 This file contains tools for converting colors in linear space to [sRGB encoding](https://en.wikipedia.org/wiki/SRGB#Transfer_function_%28%22gamma%22%29), including conversions to hexadecimal strings. Conversions from sRGB encoding to linear are not included, but such conversions should not be needed with POV-Ray 3.7 and later.
 
@@ -80,16 +80,16 @@ Arguments:
 
 ### Macro `sRGB_Hex_Linear_s (Value)`
 
-Converts a value 0...1 to a 2-digit hexadecimal string, without encoding as sRGB, and returns the string. If the argument is negative, `"--"` is returned; if the argument is greater than 1.0, `"++"` is returned.
+Converts a value 0...1 to a 2-digit hexadecimal string, without encoding as sRGB, and returns the string. If the rounded hexadecimal value is negative, `"--"` is returned; if the rounded hexadecimal value is greater than 1.0, `"++"` is returned.
 
 ### Macro `sRGB_Hex_Convert_s (Value)`
 
-Converts a value 0...1 in linear space to an sRGB-encoded 2-digit hexadecimal string, and returns the string. If the argument is negative, `"--"` is returned; if the argument is greater than 1.0, `"++"` is returned.
+Converts a value 0...1 in linear space to an sRGB-encoded 2-digit hexadecimal string, and returns the string. If the rounded hexadecimal value is negative, `"--"` is returned; if the rounded hexadecimal value is greater than 1.0, `"++"` is returned.
 
 ### Macro `sRGB_Hex_Straight_Color_s (Color)` or `sRGB_Hex_Straight_Colour_s (Colour)`
 
-Converts a color to a 6-digit hexadecimal string, without encoding as sRGB, and returns the string. If a channel value is negative, `"--"` is returned for that channel; if a channel value is greater than 1.0, `"++"` is returned for that channel. The filter and transmit channels are ignored. A scalar argument will be promoted to a color.
+Converts a color to a 6-digit hexadecimal string, without encoding as sRGB, and returns the string. If a rounded hexadecimal channel value is negative, `"--"` is returned for that channel; if a rounded hexadecimal channel value is greater than 1.0, `"++"` is returned for that channel. The filter and transmit channels are ignored. A scalar argument will be promoted to a color.
 
 ### Macro `sRGB_Hex_Convert_Color_s (Color)` or `sRGB_Hex_Convert_Colour_s (Colour)`
 
-Converts a color in linear space to an sRGB-encoded 6-digit hexadecimal string, and returns the string. If a channel value is negative, `"--"` is returned for that channel; if a channel value is greater than 1.0, `"++"` is returned for that channel. The filter and transmit channels are ignored. A scalar argument will be promoted to a color.
+Converts a color in linear space to an sRGB-encoded 6-digit hexadecimal string, and returns the string. If a rounded hexadecimal channel value is negative, `"--"` is returned for that channel; if a rounded hexadecimal channel value is greater than 1.0, `"++"` is returned for that channel. The filter and transmit channels are ignored. A scalar argument will be promoted to a color.

@@ -33,7 +33,8 @@
  *                     Macros with international spellings are added.
  *                     A more conventional POV-Ray capitalization style is used
  *                      for the macro names.
- *                     View_POV_Include_Stack is utilized..
+ *                     View_POV_Include_Stack is utilized.
+ * 2.1    2023-Jul-15  Hexadecimal values are rounded before range checking.
  */
 #ifndef (sRGB_Inc_Temp) #declare sRGB_Inc_Temp = version;
 #version max (3.5, min (3.8, version));
@@ -109,16 +110,17 @@
 /*------------------------------------------------------------------------------
  * Converts a value 0...1 to a two-digit hexadecimal string, without encoding
  * as sRGB.
- * If the value is negative, "--" is returned.
- * If the value is greater than 1.0, "++" is returned.
+ * If the rounded hex value is negative, "--" is returned.
+ * If the rounded hex value is greater than 1.0, "++" is returned.
  */
 #macro sRGB_Hex_Linear_s (Value)
-  #if (Value < 0)
+  #local srgb_V = floor (Value * 255 + 0.5);
+  #if (srgb_V < 0)
     "--"
-  #else #if (Value > 1)
+  #else #if (srgb_V > 255)
     "++"
   #else
-    sRGB_Hex_Integer_s (Value * 255, 2)
+    sRGB_Hex_Integer_s (srgb_V, 2)
   #end
   #end
 #end
@@ -126,8 +128,8 @@
 /*------------------------------------------------------------------------------
  * Converts a value 0...1 in linear space to a 2-digit sRGB-encoded hexadecimal
  * string.
- * If the value is negative, "--" is returned.
- * If the value is greater than 1.0, "++" is returned.
+ * If the rounded hex value is negative, "--" is returned.
+ * If the rounded hex value is greater than 1.0, "++" is returned.
  */
 #macro sRGB_Hex_Convert_s (Value)
   sRGB_Hex_Linear_s (sRGB_fn_Convert (Value))
@@ -135,8 +137,10 @@
 
 /*------------------------------------------------------------------------------
  * Converts a color to a 6-digit hexadecimal string, without encoding as sRGB.
- * If a channel value is negative, "--" is returned for that channel.
- * If a channel value is greater than 1.0, "++" is returned for that channel.
+ * If a rounded hex channel value is negative, "--" is returned for that
+ * channel.
+ * If a rounded hex channel value is greater than 1.0, "++" is returned for that
+ * channel.
  */
 #macro sRGB_Hex_Straight_Color_s (Color)
   #local srgb_C = color (Color);
@@ -150,8 +154,10 @@
 /*------------------------------------------------------------------------------
  * Converts a color in linear space to a 6-digit sRGB-encoded hexadecimal
  * string.
- * If a channel value is negative, "--" is returned for that channel.
- * If a channel value is greater than 1.0, "++" is returned for that channel.
+ * If a rounded hex channel value is negative, "--" is returned for that
+ * channel.
+ * If a rounded hex channel value is greater than 1.0, "++" is returned for that
+ * channel.
  */
 #macro sRGB_Hex_Convert_Color_s (Color)
   sRGB_Hex_Straight_Color_s (sRGB_Convert_v (Color))
