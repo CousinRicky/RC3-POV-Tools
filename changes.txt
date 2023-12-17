@@ -1,4 +1,5 @@
 Changes to RC3-POV-Tools
+Collection version 2.0, 2023 December 17
 
 dotgray.inc, dotgrey.inc
   1.0    2023-Feb-20  Prepared for GitHub release.
@@ -7,6 +8,12 @@ dotgray.inc, dotgrey.inc
 halton.inc
   1.0    2020-Mar-26  Created.
   1.0.1  2023-Feb-20  The POV-Ray version is auto-detected within a range.
+
+iorsuggest.inc
+  1.0    2018-Dec-18  Created.
+  1.0.1  2023-Dec-17  Added to RC3-POV-Tools:
+                      Compatibility is extended to POV-Ray 3.5.
+                      View_POV_Include_Stack is utilized.
 
 srgb.inc
   1.0    2014-Mar-25  Initial public release.
@@ -17,3 +24,4 @@ srgb.inc
                       The POV-Ray version is auto-detected within a range.
                       View_POV_Include_Stack is utilized.
   2.1    2023-Jul-15  Hexadecimal values are rounded before range checking.
+  3.0    2023-Dec-17  sRGB decoders are added.

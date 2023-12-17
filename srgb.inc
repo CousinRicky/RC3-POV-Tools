@@ -1,8 +1,8 @@
-/* srgb.inc version 2.0
+/* srgb.inc version 3.0
  * Persistence of Vision Ray Tracer include file
  *
- * Utilities for converting colors in linear space to sRGB encoding, including
- * conversions to hexadecimal strings.
+ * Utilities for converting colors between linear space and sRGB encoding,
+ * including conversions to hexadecimal strings.
  *
  * Usage notes:
  *  - The macros all return the converted values without altering their
@@ -35,11 +35,12 @@
  *                      for the macro names.
  *                     View_POV_Include_Stack is utilized.
  * 2.1    2023-Jul-15  Hexadecimal values are rounded before range checking.
+ * 3.0    2023-Dec-17  sRGB decoders are added.
  */
 #ifndef (sRGB_Inc_Temp) #declare sRGB_Inc_Temp = version;
 #version max (3.5, min (3.8, version));
 #ifdef (View_POV_Include_Stack)
-  #debug "#include \"srgb.inc\" //version 2.0\n"
+  #debug "#include \"srgb.inc\" //version 3.0\n"
 #end
 
 #declare SRGB__HEX_DIGITS = "0123456789ABCDEF"
@@ -161,6 +162,41 @@
  */
 #macro sRGB_Hex_Convert_Color_s (Color)
   sRGB_Hex_Straight_Color_s (sRGB_Convert_v (Color))
+#end
+
+/*------------------------------------------------------------------------------
+ * Decodes an sRGB-encoded scalar value 0...1 to linear space, and returns the
+ * decoded value.
+ */
+#declare sRGB_fn_Decode = function (x) //from IEC 61966-2-1:1999
+{ select (x - 0.04045, x / 12.92, pow ((x + 0.055) / 1.055, 2.4))
+}
+
+/*------------------------------------------------------------------------------
+ * Decodes an sRGB-encoded 3-D vector to linear space, and returns the decoded
+ * vector. A scalar argument will be promoted to a vector.
+ */
+#macro sRGB_Decode_v (Vector)
+  #local srgb_V = <0,0,0> + Vector;
+  < sRGB_fn_Decode (srgb_V.red),
+    sRGB_fn_Decode (srgb_V.green),
+    sRGB_fn_Decode (srgb_V.blue)
+  >
+#end
+
+/*------------------------------------------------------------------------------
+ * Decodes an sRGB-encoded color to linear space, and returns the decoded color.
+ * The filter and transmit channels are returned unaltered. A scalar or vector
+ * argument will be promoted to a color.
+ */
+#macro sRGB_Decode_c (Color)
+  #local srgb_C = color Color;
+  < sRGB_fn_Decode (srgb_C.red),
+    sRGB_fn_Decode (srgb_C.green),
+    sRGB_fn_Decode (srgb_C.blue),
+    srgb_C.filter,
+    srgb_C.transmit
+  >
 #end
 
 //=================== INTERNATIONAL SPELLINGS ==================================

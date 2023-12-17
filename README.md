@@ -1,6 +1,6 @@
 # Miscellaneous POV-Ray Tools
 
-Collection version 1.1, 2023 July 15
+Collection version 2.0, 2023 December 17
 
 This is a collection of miscellaneous short include files that I have written for the [Persistence of Vision Raytracer (POV-Ray)](https://www.povray.org/). They require a minimum POV-Ray version of 3.5.
 
@@ -48,9 +48,26 @@ This scene description file demonstrates how to use macro `Halton()`.
 
 ----------------------------------------
 
-## File srgb.inc v2.1
+## File iorsuggest.inc v1.0.1
 
-This file contains tools for converting colors in linear space to [sRGB encoding](https://en.wikipedia.org/wiki/SRGB#Transfer_function_%28%22gamma%22%29), including conversions to hexadecimal strings. Conversions from sRGB encoding to linear are not included, but such conversions should not be needed with POV-Ray 3.7 and later.
+POV-Ray’s dispersion algorithm assumes that the given IOR is for a wavelength midway between red and violet. However, IORs are normally given at wavelength D, which is closer to the red end of the visible spectrum. This file provides a function that suggests an adjustment to a material’s index of refraction that yields reasonably realistic dispersion for most materials.
+
+### function `IORSuggest_fn (x, y)`
+
+Arguments:
+
+* `x` - The D-line index of refraction
+* `y` - The dispersion
+
+For POV-Ray 3.7 and later, argument values can be obtained from `ior.inc`. For older versions, `consts.inc` provides a more limited selection of values. Note that the values for diamond in `consts.inc` are inaccurate.
+
+Be aware that POV-Ray 3.5 and 3.6 use an inferior dispersion algorithm, and 3.5 has a serious bug when used with Fresnel reflection and `conserve_energy`.
+
+----------------------------------------
+
+## File srgb.inc v3.0
+
+This file contains tools for converting colors between linear space and [sRGB encoding](https://en.wikipedia.org/wiki/SRGB#Transfer_function_%28%22gamma%22%29), including conversions to hexadecimal strings.
 
 Usage notes:
 
@@ -93,3 +110,19 @@ Converts a color to a 6-digit hexadecimal string, without encoding as sRGB, and 
 ### Macro `sRGB_Hex_Convert_Color_s (Color)` or `sRGB_Hex_Convert_Colour_s (Colour)`
 
 Converts a color in linear space to an sRGB-encoded 6-digit hexadecimal string, and returns the string. If a rounded hexadecimal channel value is negative, `"--"` is returned for that channel; if a rounded hexadecimal channel value is greater than 1.0, `"++"` is returned for that channel. The filter and transmit channels are ignored. A scalar argument will be promoted to a color.
+
+---
+
+The remaining tools are included for the sake of older POV-Ray versions that do not have the `srgb` series of keywords.
+
+### Function `sRGB_fn_Decode (x)`
+
+Decodes an sRGB-encoded scalar value 0...1 to linear space, and returns the decoded value. If the argument is a byte value, then divide it by 255 before passing it to this function.
+
+### Macro `sRGB_Decode_v (Vector)`
+
+Decodes an sRGB-encoded 3-D vector to linear space, and returns the decoded vector. A scalar argument will be promoted to a vector. If the argument is a byte triplet, then divide it by 255 before passing it to this macro.
+
+### Macro `sRGB_Decode_c (Color)`
+
+Decodes an sRGB-encoded color to linear space, and returns the decoded color. The filter and transmit channels are returned unaltered. A scalar or vector argument will be promoted to a color.
