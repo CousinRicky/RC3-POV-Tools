@@ -2,11 +2,12 @@
  * Persistence of Vision Raytracer include file
  *
  * A function that suggests an adjustment to a material's index of refraction
- * that yields reasonably realistic dispersion for most materials.
+ * that yields reasonably accurate dispersion for most materials.
  *
  * Background: IORs are normally given at wavelength D, but POV-Ray's dispersion
  * algorithm assumes that the given IOR is for a wavelength midway between red
- * and violet.
+ * and violet.  For a discussion, see:
+ *  https://news.povray.org/povray.binaries.images/thread/%3C58eee63d%40news.povray.org%3E/
  *
  * Copyright © 2018, 2023 Richard Callwood III.  Some rights reserved.
  *

@@ -50,7 +50,7 @@ This scene description file demonstrates how to use macro `Halton()`.
 
 ## File iorsuggest.inc v1.0.1
 
-POV-Ray’s dispersion algorithm assumes that the given IOR is for a wavelength midway between red and violet. However, IORs are normally given at wavelength D, which is closer to the red end of the visible spectrum. This file provides a function that suggests an adjustment to a material’s index of refraction that yields reasonably realistic dispersion for most materials.
+POV-Ray’s dispersion algorithm assumes that the given IOR is for a wavelength midway between red and violet. However, IORs are normally given at wavelength D, which is closer to the red end of the visible spectrum. See [SpectralRender/ior.inc dispersion mismatches](https://news.povray.org/povray.binaries.images/thread/%3C58eee63d%40news.povray.org%3E/) for a discussion. This file provides a function that *suggests* an adjustment to a material’s index of refraction that yields reasonably accurate dispersion for most materials.
 
 ### function `IORSuggest_fn (x, y)`
 
